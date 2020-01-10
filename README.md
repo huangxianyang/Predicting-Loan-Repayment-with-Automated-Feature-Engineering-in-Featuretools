@@ -220,7 +220,7 @@ print('There are {} Boolean variables in the previous data.'.format(len(previous
 
 <!-- We don't want to make features from `SK_ID_CURR` since it is an arbitrary id and should have no predictive power. 
 Our options to handle these variables is either to tell featuretools to ignore them, or to drop the features before including them in the entityset. We will take the latter approach. -->  
-我们并不基于`SK_ID_CURR`创建特征, 因为他是没有业务意义的id,并不具有预测能力. 我们处理这些变量的选项是告诉Featuretools忽略它们. 活着在将数据表加入实体集之前就将它们移除, 我们将采用后一种方法.
+我们并不基于`SK_ID_CURR`创建特征, 因为他是没有业务意义的id,并不具有预测能力. 我们处理这些变量的选项是告诉Featuretools忽略它们. 或者在将数据表加入实体集之前就将它们移除, 我们将采用后一种方法.
 
 
 ```python
@@ -448,7 +448,7 @@ es.plot()
 
 
 
-![svg](output.svg)
+![svg](./output.svg)
 
 
 
@@ -699,7 +699,7 @@ primitives.type.unique()
 <br>另一个重要参数是`eatures_only`. 如果我们设置为`True`, `dfs`将只生成特征名,而不会实际计算出特征值(特征矩阵值). 当我们进行特征创建和保存检查时,只生成特征名而不进行计算是非常有用的.
 
 <!-- ## Deep Feature Synthesis with Default Primitives -->
-## 深度特征合默认原函数
+## 深度特征合成默认原函数
 
 <!-- Without using any domain knowledge we can make thousands of features by using the default primitives in featuretools. This first call will use the default aggregation and transformation primitives,  a max depth of 2, and calculate primitives for the `app` entity. We will only generate the features themselves (the names and not the values) which we can save and inspect. -->
 <br>在Featuretools中不使用任何领域知识我们可以使用深度特征合成默认原函数构建成千上万特征.首先使用聚合和转换原函数. 一个深度为2的实体特征. 将只生成特征名进行保存和检查.
@@ -826,7 +826,7 @@ ft.save_features(feature_names, 'input/features.txt')
 <br>如果我们对将要构建的特征满意, 则可以运行深度特征合成并创建特征矩阵. 以下调用运行完整的深度特征合成. 根据您的计算机,这可能需要很长时间. Featuretools确实允许并行处理, 但是每个核必须能够处理整个实体集.
 
 <!-- __An actual run of this code was completed using Dask which can be seen in the [Featuretools on Dask notebook](https://github.com/Featuretools/Automated-Manual-Comparison/blob/master/Loan%20Repayment/notebooks/Featuretools%20on%20Dask.ipynb).__ The Dask code takes under 2 hours to run and is a great example of how we can use parallel processing to use our resouces in the most efficient manner. -->
-__该代码运行实际上市使用Dask(云服务器)完成的.Dask上代码运行时间不到2个小时, 这是一个很好的示例, 说明了我们如何使用并行处理以最有效的方式使用资源.__
+__该代码运行实际上是使用Dask(云服务器)完成的.Dask上代码运行时间不到2个小时, 这是一个很好的示例, 说明了我们如何使用并行处理以最有效的方式使用资源.__
 
 
 ```python
