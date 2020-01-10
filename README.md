@@ -2,7 +2,7 @@
 # 通过Featuretools自动特征工程预测贷款偿还
 
 <!-- Feature engineering is the process of creating new features (also called predictors or explanatory variables) out of an existing dataset. Traditionally, this process is done by hand using domain knowledge to build new features one at a time. In a previous notebook, we saw that feature engineering is crucial for a data science problem and how the manual approach is time-consuming, tedious, error-prone, and must be re-done for each problem. Automated feature engineering aims to aid the data scientist in this critical process by automatically creating hundreds or thousands of new features from a set of related tables in a fraction of the time as the manual approach. In this notebook, we will apply automated feature engineering to the Home Credit Default Risk loan dataset using [Featuretools, an open-source Python library](https://www.featuretools.com/) for automated feature engineering. -->  
-特征工程是一个基于现有数据构建新特征(也称作预测变量或具有解释的变量)的过程. 传统上,使用领域知识手工一次构建一个来完成特征工程.在以前的笔记中,我们知道特征工程对于数据科学至关重要但人工方法很耗时,乏味,容易出错以及必须针对每个项目重做.自动化特征工程是在短时间内从一组关系表中自动构建成百上千新特征从而如同人工方法一样在这一关键过程中为数据科学家提供帮助.在本文,我们使用[Featuretools,一个Python开源库]将自动化特征工程应用于房贷信用贷违约风险数据集以进行自动构建特征.
+特征工程是一个基于现有数据构建新特征(也称作预测变量或具有解释的变量)的过程. 传统上,使用领域知识手工一次构建一个来完成特征工程.在以前的笔记中,我们知道特征工程对于数据科学至关重要但人工方法很耗时,乏味,容易出错以及必须针对每个项目重做.自动化特征工程是在短时间内从一组关系表中自动构建成百上千新特征从而如同人工方法一样在这一关键过程中为数据科学家提供帮助.在本文,我们使用[Featuretools,一个Python开源库](https://www.featuretools.com/)将自动化特征工程应用于房贷信用贷违约风险数据集以进行自动构建特征.
 
 <!-- This problem is a machine learning competition currently running on Kaggle where the objective is to predict if an applicant will default on a loan given comprehensive data on past loans and applicants. The data is spread across seven different tables making this an ideal problem for automated feature engineering: all of the data must be gathered into a single dataframe for training (and one for testing) with the aim of capturing as much usable information for the prediction problem as possible. As we will see, featuretools can efficiently carry out the tedious process of using all of these tables to make new features with only a few lines of code. Moreover, this code is generally applicable to any data science problem!
 -->
@@ -15,23 +15,23 @@
 本文方法将包括以下内容:
 
 <!-- * 1. Read in the set of related data tables -->
-* 1. 读取关系数据表集合
+* 读取关系数据表集合
 <!-- * 2. Create a featuretools `EntitySet` and add `entities` to it -->
-* 2. 创建一个Featuretools的`实体集`且为它添加`实体`
+* 创建一个Featuretools的`实体集`且为它添加`实体`
     <!-- * Identify correct variable types as required -->
     * 根据需要识别正确的变量类型
     <!-- * Identify indices in data -->
     * 识别数据索引
 <!-- * 3. Add relationships between `entities` -->
-* 3. 为`实体`之间添加关联关系
+*  为`实体`之间添加关联关系
 <!-- * 4. Select feature primitives to use to create new features -->
-* 4. 选择特征基元用于创建新特征
+* 选择特征基元用于创建新特征
     <!-- * Use basic set of primitives -->
     * 基本基元集
     <!-- * Examine features that will be created -->
     * 检查将要被创建的特征
 <!-- * 5. Run Deep Feature Synthesis to generate thousands of new features -->
-* 5. 运行深度特征合成生成成千上万个新特征
+* 运行深度特征合成生成成千上万个新特征
 
 
 <!-- ## Problem and Dataset -->
@@ -41,7 +41,7 @@
 目前在Kaggle上运行的[房屋贷款信用违约风险竞赛](https://www.kaggle.com/c/home-credit-default-risk)是一项监督分类任务，目的是预测申请人(或称之为客户)申请贷款将是否拖欠该贷款. 该数据包括客户的社会经济指标,历史贷款的特定财务信息,以及有关 Home Credit（赞助比赛的机构）和其他信贷机构历史贷款的综合数据. 此项竞赛的度量标准是受试者特征曲线（ROC AUC），并根据违约情况进行了预测。我们可以通过交叉验证训练数据(带有标签)或将测试预测提交给Kaggle以查看我们在公共排行榜上的位置(仅通过10％的测试计算得出)来评估提交的内容数据.
 
 <!-- The Home Credit Default Risk dataset ([available for download here](https://www.kaggle.com/c/home-credit-default-risk/data)) consists of seven related tables of data:  --> 
-房屋贷款信用风险数据集是由7个表构成:
+[房屋贷款信用风险数据集](https://www.kaggle.com/c/home-credit-default-risk/data)是由7个表构成:
 
 <!-- * application_train/application_test: the main training/testing data for each client at Home Credit. The information includes both socioeconomic indicators for the client and loan-specific characteristics. Each loan has its own row and is uniquely identified by the feature `SK_ID_CURR`. The training application data comes with the `TARGET` indicating 0: the loan was repaid or 1: the loan was not repaid. -->
 * application_train/application_test:trainning/testing为每个客户的主要家庭授信数据, 主要包括客户社会经济指标和特定的贷款特征.每笔贷款都有唯一的行并由特征`SK_ID_CURR`作为唯一标识符.application_train数据带有`TARGET`列, 其中,0:标识贷款已被偿还, 1标识贷款未被偿还.  
@@ -119,19 +119,19 @@ for index in ['SK_ID_CURR', 'SK_ID_PREV', 'SK_ID_BUREAU']:
 # Featuretools 基础
 
 <!-- [Featuretools](https://docs.featuretools.com/#minute-quick-start) is an open-source Python library for automatically creating features out of a set of related tables using a technique called [Deep Feature Synthesis](http://www.jmaxkanter.com/static/papers/DSAA_DSM_2015.pdf). Automated feature engineering, like many topics in machine learning, is a complex subject built upon a foundation of simpler ideas. By going through these ideas one at a time, we can build up our understanding of Featuretools which will later allow for us to get the most out of it.  --> 
-Featuretools是一个使用一种技术叫做`Deep Feature Synthesis` 深度特征合成从一组相关表中创建特征的python开源库.自动特征工程,像许多机器学习主题一样, 是一个基于简单思想的复杂主题.通过这一次研究这些思想,我们建立对Featuretools的理解,以后更加充分利用它. 
+[Featuretools](https://docs.featuretools.com/#minute-quick-start)是一个使用一种技术叫做`Deep Feature Synthesis` 深度特征合成从一组相关表中创建特征的python开源库.自动特征工程,像许多机器学习主题一样, 是一个基于简单思想的复杂主题.通过这一次研究这些思想,我们建立对Featuretools的理解,以后更加充分利用它. 
 
 <!-- There are a few concepts that we will cover along the way:   -->
 在此过程中我们会涉及一些概念:
 
 <!-- * [Entities and EntitySets](https://docs.featuretools.com/loading_data/using_entitysets.html): our tables and a data structure for keeping track of them all -->
-* [实体 and 实体集合]: 表和用于追踪所有表格的数据结构
+* [实体 and 实体集合](https://docs.featuretools.com/loading_data/using_entitysets.html): 表和用于追踪所有表格的数据结构
 <!-- * [Relationships between tables](https://docs.featuretools.com/loading_data/using_entitysets.html#adding-a-relationship): how the tables can be related to one another -->
-* [表之间关系]:一张表与另一张表如何关联 
+* [表之间关系](https://docs.featuretools.com/loading_data/using_entitysets.html#adding-a-relationship):一张表与另一张表如何关联 
 <!-- * [Feature primitives](https://docs.featuretools.com/automated_feature_engineering/primitives.html): aggregations and transformations that are stacked to build features -->
-* [特征基元]:聚合和转换通过堆叠以构建特征,通俗理解就是业务主键,通常是业务订单号. 
+* [特征基元](https://docs.featuretools.com/automated_feature_engineering/primitives.html):聚合和转换通过堆叠以构建特征,通俗理解就是业务主键,通常是业务订单号. 
 <!-- * [Deep feature synthesis](https://docs.featuretools.com/automated_feature_engineering/afe.html): the method that uses feature primitives to generate thousands of new features -->
-* [深度特征合成]: 使用特征基元生成成千上万个新特征的方法
+* [深度特征合成](https://docs.featuretools.com/automated_feature_engineering/afe.html): 使用特征基元生成成千上万个新特征的方法
 
 <!-- # Entities and Entitysets -->
 # 实体和实体集合
