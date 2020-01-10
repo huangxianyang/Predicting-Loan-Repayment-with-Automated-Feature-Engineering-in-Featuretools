@@ -1,5 +1,5 @@
 <!-- # Predicting Loan Repayment with Automated Feature Engineering in Featuretools -->
-# 通过Featuretools自动特征工程预测贷款偿还
+# 基于Featuretools自动特征工程构建预测贷款偿还特征
 
 <!-- Feature engineering is the process of creating new features (also called predictors or explanatory variables) out of an existing dataset. Traditionally, this process is done by hand using domain knowledge to build new features one at a time. In a previous notebook, we saw that feature engineering is crucial for a data science problem and how the manual approach is time-consuming, tedious, error-prone, and must be re-done for each problem. Automated feature engineering aims to aid the data scientist in this critical process by automatically creating hundreds or thousands of new features from a set of related tables in a fraction of the time as the manual approach. In this notebook, we will apply automated feature engineering to the Home Credit Default Risk loan dataset using [Featuretools, an open-source Python library](https://www.featuretools.com/) for automated feature engineering. -->  
 特征工程是一个基于现有数据构建新特征(也称作预测变量或具有解释的变量)的过程. 传统上,使用领域知识手工一次构建一个来完成特征工程.在以前的笔记中,我们知道特征工程对于数据科学至关重要但人工方法很耗时,乏味,容易出错以及必须针对每个项目重做.自动化特征工程是在短时间内从一组关系表中自动构建成百上千新特征从而如同人工方法一样在这一关键过程中为数据科学家提供帮助.在本文,我们使用[Featuretools,一个Python开源库](https://www.featuretools.com/)将自动化特征工程应用于房贷信用贷违约风险数据集以进行自动构建特征.
@@ -448,7 +448,7 @@ es.plot()
 
 
 
-![svg](./output.svg)
+![avatar](/output.png)
 
 
 
