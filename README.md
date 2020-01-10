@@ -74,7 +74,8 @@ import numpy as np
 import featuretools as ft
 ```
 
-### Read in Data
+<!-- ### Read in Data -->
+### 读取数据
 
 <!-- First we can read in the seven data tables. We also replace the anomalous values previously identified (we did the same process with manual feature engineering).  --> 
 首先我们需要读取这7张表,并进行异常值处理(这在手工特征工程也一样).
@@ -157,7 +158,7 @@ es = ft.EntitySet(id = 'clients')
 ### 变量类型
 
 <!-- Featuretools will automatically infer the variable types. However, there may be some cases where we need to explicitly tell featuretools the variable type such as when a boolean variable is represented as an integer. Variable types in featuretools can be specified as a dictionary.   -->
-Featuretools 会自动推断变量类型. 然而,有些特征我们需要向Featuretools指定变量类型, 例如表现为整数的bool变量. 在Featuretools中可以通过一个字典指定变量类型.
+Featuretools 会自动推断变量类型. 然而,有些特征我们需要向Featuretools指定变量类型, 例如表现为整数的`bool`变量. 在Featuretools中可以通过一个字典指定变量类型.
 
 <!-- We will first work with the `app` data to specify the proper variable types. To identify the `Boolean` variables that are recorded as numbers (1.0 or 0.0), we can iterate through the data and find any columns where there are only 2 unique values and the data type is numeric. We can also use the column definitions to find any other data types that should be identified, such as `Ordinal` variables. Identifying the correct variable types is important because Featuretools applies different operations to different data types (just as we do when manual feature engineering).   -->
 我们首先要为`app`数据指定正确的变量类型,即辨别已经记录为数值(1.0或0.0)的`Boolean`变量,我们可以遍历数据集中的每个变量是否只有2值且类型为数值.我们也可以直接指定某个列为特定类型, 例如有序变量`Ordinal`类型.识别正确的变量类型很重要,因为Featuretools是根据不同的数据类型运行不同的操作逻辑(如同我们进行人工构建特征工程一样).    
@@ -447,7 +448,7 @@ es.plot()
 
 
 
-![svg](output_34_0.svg)
+![svg](output.svg)
 
 
 
@@ -769,10 +770,10 @@ feature_names[-15:]
 <!-- Seed features are domain features that we make in the data that Featuretools is then able to build on top of. For example, we saw that the rate of a loan is an important feature because a higher rate loan is likely more risky. In Featuretools, we can encode the loan rate (both for the current loan and for previous loans) as a seed feature and Featuretools will build additional explanatory variables on this domain knowledge wherever possible.  -->
 <br> 种子特征是我们在数据中创建的领域特征, 然后可以在Featuretools的基础上构建它们. 例如, 我们看到贷款利率是一个重要特征, 因为利率较高的贷款可能更具风险. 在Featuretools中, 我们可以将贷款利率(当前贷款和历史贷款两者)编码为种子特征, Featuretools会在可能的情况下基于此领域知识构建其他解释变量.
 
-<-- ### Interesting Values -->
-### 有趣值
+<!-- ### Interesting Values -->
+### 特别值
 <!-- Interesting values have a similar idea to seed features except they allow us to make conditional features. For example, we might want to find for each client the mean amount of previous loans that have been closed and the mean amount of previous loans that are still active. By specifying interesting values in `bureau` on the `CREDIT_ACTIVE` variable we can have Featuretools do exactly that! Carrying this out by hand would be extremely tedious and present numerous opportunities for errors. -->
-<br> 有趣值与种子特征具有相似的思路, 除了它们使我们能够形成条件特征. 例如, 我们可能想为每个客户查找已关闭的历史贷款的平均金额和仍处于还款状态的历史贷款的平均金额. 通过在表`bureau`中变量`CREDIT_ACTIVE`指定有趣的值, 我们可以让Featuretools做到这一点, 手工执行此操作将非常繁琐,并且积极可能发生错误.
+<br> 特别值与种子特征具有相似的思路, 除了它们使我们能够形成条件特征. 例如, 我们可能想为每个客户查找已关闭的历史贷款的平均金额和仍处于还款状态的历史贷款的平均金额. 通过在表`bureau`中变量`CREDIT_ACTIVE`指定有趣的值, 我们可以让Featuretools做到这一点, 手工执行此操作将非常繁琐,并且积极可能发生错误.
 
 <!-- ### Custom Primitives -->
 ### 自定义基元
